@@ -1,0 +1,14 @@
+REDHAWK GNU Radio 
+
+git clone --recursive https://github.com/Geontech/gnuradio-redhawk
+
+yum install gnuradio
+yum install gnuradio-devel
+yum install cppunit-devel
+yum install cppunit
+
+cd 1-traditional
+make rip
+sudo make install-rip
+sudo make install-cc
+
