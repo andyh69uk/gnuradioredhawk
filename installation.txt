@@ -12,3 +12,44 @@ make rip
 sudo make install-rip
 sudo make install-cc
 
+Make changes to converter
+
+diff --git a/converter/lib/grc_to_py.py b/converter/lib/grc_to_py.py
+index c98f926..4761a56 100644
+--- a/converter/lib/grc_to_py.py
++++ b/converter/lib/grc_to_py.py
+@@ -1,8 +1,12 @@
+import os
+-from gnuradio.grc.python.Platform import Platform
++from gnuradio.grc.core.Platform import Platform
++from gnuradio import gr
++
+
+def grc_to_py(grcfile, outdir):
+-    platform = Platform()
++    platform = Platform(
++        prefs_file=gr.prefs(),
++        version=gr.version())
+    data = platform.parse_flow_graph(grcfile)
+
+    # Clean out the QT GUI, etc.
+@@ -29,5 +33,5 @@ def grc_to_py(grcfile, outdir):
+
+    if outdir[-1] != '/':
+        outdir += '/'
+-    gen = platform.get_generator()(fg, outdir)
+-    gen.write()
+\ No newline at end of file
++    gen = platform.Generator(fg, outdir)
++    gen.write()
+
+add symbolic link from /usr/local/lib64/python-2.7/site-packages/redhawk-integration-platform /usr/lib64/python-2.7/site-packages
+
+Create grc add redhawk sink and source as required and expose any variables
+run gnuradio-redhawk/gr-component_converter/converter/run.py
+./run.py ~/GNU_Radio/Testing/signal_gen.grc ~/GNU_Radio/Testing3/
+
+Open project in RH IDE, add new dataFloat out port and then remove
+Delete testable object from scd
+Generate implementations, build.sh, configure, make install
+
