@@ -1,0 +1,12 @@
+To stop the REDHAWK component from starting top block as part of the component intialisation do the following:-
+
+Change required variables in the init to be global variables:-
+
+self.naming_context_ior = execparams["NAMING_CONTEXT_IOR"]
+self.corba_namespace_name = execparams["NAME_BINDING"]
+
+Move the instantiation of the top block object to the start function (and stop using test):-
+
+from grc_top_block import top_block as top_block
+self.tb = top_block(self.naming_context_ior, self.corba_namespace_name)
+
